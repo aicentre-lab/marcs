@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MARCS App Support | Mass Attendance and Realtime Classroom System</title>
+  <meta name="description" content="Support for the MARCS attendance app (Mass Attendance and Realtime Classroom System): contact details and help with signing in, session PINs, location, Bluetooth, selfie and face verification, and attendance records.">
+  <!-- Everything is served from this folder: no analytics, trackers, CDNs or forms. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0E2748">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preload" href="fonts/PlusJakartaSans-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="support.js" defer></script>
+</head>
+<body>
+  <!-- Icon set: 24px line icons, referenced below with <use>. Decorative only. -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2.5" width="10.5" height="19" rx="2.5"/><path d="M9 18.5h2.5M18.5 8.5a4.5 4.5 0 0 1 0 7M21 6a8 8 0 0 1 0 12"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4.5"/><path d="M12.5 12H21M18 12v3.5M21 12v2.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M7 12h.01M10.3 12h.01M13.7 12h.01M17 12h.01" stroke-width="2.6"/></symbol>
+    <symbol id="i-location" viewBox="0 0 24 24"><path d="M12 21.5s-7-5.9-7-11.5a7 7 0 0 1 14 0c0 5.6-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-bluetooth" viewBox="0 0 24 24"><path d="m6.5 7 11 10-5.5 4.5v-19L17.5 7l-11 10"/></symbol>
+    <symbol id="i-face" viewBox="0 0 24 24"><path d="M3.5 8V6A2.5 2.5 0 0 1 6 3.5h2M16 3.5h2A2.5 2.5 0 0 1 20.5 6v2M20.5 16v2a2.5 2.5 0 0 1-2.5 2.5h-2M8 20.5H6A2.5 2.5 0 0 1 3.5 18v-2"/><path d="M9 10h.01M15 10h.01" stroke-width="2.4"/><path d="M9.2 14.6a4 4 0 0 0 5.6 0"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.2M12 16.3h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8 4.5 6v5.6c0 4.6 3.2 8.6 7.5 9.8 4.3-1.2 7.5-5.2 7.5-9.8V6L12 2.8z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 16.8h.01"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-institution" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5M5 10.5v7M9.7 10.5v7M14.3 10.5v7M19 10.5v7M3 20.5h18"/></symbol>
+    <symbol id="i-lifebuoy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.6"/><path d="m5.6 5.6 3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.7h.01"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Shown by support.js only while config.js still holds placeholders. -->
+  <div class="setup-banner" id="setup-banner" role="alert" hidden>
+    <div class="container setup-banner__inner">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-warning"/></svg>
+      <p><strong>Not ready to publish.</strong> The support email address and phone number have not been set. Replace <code>SUPPORT_EMAIL</code> and <code>SUPPORT_PHONE</code> in <code>config.js</code> before publishing this page or entering its URL in App Store Connect.</p>
+    </div>
+  </div>
+
+  <header class="site-header on-dark">
+    <div class="container site-header__inner">
+      <div class="brand">
+        <!-- The university's official lock-up, as in the app bars: navy on
+             transparent, so it sits on a white plate rather than being recoloured. -->
+        <span class="logo-plate">
+          <img class="logo-plate__srhu" src="images/srhu-logo.png" width="200" height="186" alt="Swami Rama Himalayan University">
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">MARCS</span>
+          <span class="brand__full">Mass Attendance and Realtime Classroom System</span>
+        </span>
+      </div>
+      <nav class="topnav" aria-label="On this page">
+        <ul>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#help">Troubleshooting</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero on-dark" aria-labelledby="page-title">
+      <svg class="hero__rings" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+        <circle cx="200" cy="200" r="62"/>
+        <circle cx="200" cy="200" r="112"/>
+        <circle cx="200" cy="200" r="160"/>
+        <circle cx="200" cy="200" r="196"/>
+      </svg>
+      <div class="container hero__inner">
+        <div class="hero__intro">
+          <img class="hero__logo" src="images/marcs-logo.png" width="288" height="288" alt="MARCS app logo">
+          <p class="eyebrow">Help centre</p>
+          <h1 id="page-title">MARCS App Support</h1>
+          <p class="lead">This page helps students and teachers solve problems with the MARCS attendance app, from signing in and joining a session to permissions, face verification and attendance records.</p>
+          <div class="hero__actions">
+            <a class="button button--light" href="#contact">
+              Contact support
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
+            </a>
+            <a class="button button--outline-light" href="#help">Browse common problems</a>
+          </div>
+        </div>
+
+        <aside class="routing" aria-labelledby="routing-title">
+          <h2 class="routing__title" id="routing-title">Who can help?</h2>
+          <ul class="routing__list">
+            <li>
+              <span class="routing__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-person"/></svg></span>
+              <span><strong>Your teacher</strong> Session PINs, class enrolment and whether a session is still open.</span>
+            </li>
+            <li>
+              <span class="routing__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-institution"/></svg></span>
+              <span><strong>Your institution’s administrator</strong> Creating, restoring or changing your account.</span>
+            </li>
+            <li>
+              <span class="routing__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-lifebuoy"/></svg></span>
+              <span><strong>MARCS support</strong> App errors, permissions and other technical problems.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow eyebrow--accent">Get in touch</p>
+          <h2 id="contact-title">Contact support</h2>
+          <p>Contact the MARCS support team with questions about the app or technical problems. To help us respond quickly, see <a href="#request">what to include in your request</a>.</p>
+        </div>
+
+        <noscript>
+          <p class="notice notice--warning notice--compact">Turn on JavaScript in your browser to see the support email address and phone number.</p>
+        </noscript>
+
+        <div class="contact-grid">
+          <article class="contact-card" aria-labelledby="email-title">
+            <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></span>
+            <h3 id="email-title">Email support</h3>
+            <p class="contact-card__value" data-contact="email"></p>
+            <p class="contact-card__note">Best for most questions. Your email app opens with a short template for the details we need.</p>
+          </article>
+
+          <article class="contact-card" aria-labelledby="phone-title">
+            <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg></span>
+            <h3 id="phone-title">Phone support</h3>
+            <p class="contact-card__value" data-contact="phone"></p>
+            <p class="contact-card__note">For problems that stop you from marking or managing attendance.</p>
+          </article>
+        </div>
+
+        <p class="contact-aside">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>
+          <span>Questions about your enrolment, timetable or your institution’s attendance rules are best answered by your teacher or your institution.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="help" aria-labelledby="help-title">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow eyebrow--accent">Troubleshooting</p>
+          <h2 id="help-title">Common problems</h2>
+          <p>The checks MARCS uses depend on how your institution has set up attendance. They can include a session PIN, location, Bluetooth classroom proximity, and a selfie with face and liveness verification. Settings steps are for iPhone with iOS 18 or later. On earlier versions, open Settings and scroll down to MARCS.</p>
+        </div>
+
+        <div class="help-grid">
+          <article class="help-card" id="sign-in" aria-labelledby="sign-in-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-key"/></svg></span>
+              <div>
+                <h3 id="sign-in-title">Signing in and account access</h3>
+                <p class="tags"><span class="tag">Students</span> <span class="tag tag--alt">Teachers</span></p>
+              </div>
+            </div>
+            <ul class="steps">
+              <li>Sign in with the account your institution gave you. MARCS accounts are provided by your institution.</li>
+              <li>Check your email address and password carefully, including capital letters and extra spaces.</li>
+              <li>Make sure your phone is connected to the internet.</li>
+              <li>If you still can’t sign in, or your account is missing or disabled, contact your institution’s authorised administrator.</li>
+            </ul>
+          </article>
+
+          <article class="help-card" id="joining" aria-labelledby="joining-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></span>
+              <div>
+                <h3 id="joining-title">Joining an attendance session</h3>
+                <p class="tags"><span class="tag">Students</span> <span class="tag tag--alt">Teachers</span></p>
+              </div>
+            </div>
+            <ul class="steps">
+              <li>Check the session PIN with your teacher and enter it exactly as shown.</li>
+              <li>Make sure the session is still active. A PIN works only while your teacher’s session is open.</li>
+              <li>Confirm that you are enrolled in the class the session is for. If the class is missing, ask your teacher or administrator.</li>
+              <li><strong>Teachers:</strong> check that the session was started for the right class and has not ended.</li>
+            </ul>
+          </article>
+
+          <article class="help-card" id="location" aria-labelledby="location-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-location"/></svg></span>
+              <div>
+                <h3 id="location-title">Location permission</h3>
+                <p class="tags"><span class="tag">Students</span> <span class="tag tag--alt">Teachers</span></p>
+              </div>
+            </div>
+            <p>Location permission may be needed to confirm that you are in the classroom when attendance is taken.</p>
+            <ol class="steps steps--numbered">
+              <li>Open <span class="ui-path">Settings › Privacy &amp; Security › Location Services</span> and turn Location Services on.</li>
+              <li>Open <span class="ui-path">Settings › Apps › MARCS › Location</span> and choose <strong>While Using the App</strong>.</li>
+              <li>On the same screen, turn on <strong>Precise Location</strong>.</li>
+              <li>Return to MARCS and try again. If you tapped “Don’t Allow” earlier, iPhone won’t ask again, so use these steps.</li>
+            </ol>
+          </article>
+
+          <article class="help-card" id="bluetooth" aria-labelledby="bluetooth-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bluetooth"/></svg></span>
+              <div>
+                <h3 id="bluetooth-title">Bluetooth and classroom proximity</h3>
+                <p class="tags"><span class="tag">Students</span> <span class="tag tag--alt">Teachers</span></p>
+              </div>
+            </div>
+            <p>Depending on your institution’s setup, MARCS may use Bluetooth to check that your phone is near the classroom.</p>
+            <ol class="steps steps--numbered">
+              <li>Turn Bluetooth on in <span class="ui-path">Settings › Bluetooth</span>.</li>
+              <li>Allow MARCS to use Bluetooth when asked, or turn it on in <span class="ui-path">Settings › Apps › MARCS</span>.</li>
+              <li>On iPhone, the proximity check may also need location access. Follow the location steps too.</li>
+              <li>Follow the in-app prompts, keep the attendance screen open and stay in the classroom while the check runs.</li>
+            </ol>
+          </article>
+
+          <article class="help-card" id="face" aria-labelledby="face-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-face"/></svg></span>
+              <div>
+                <h3 id="face-title">Selfie, face verification and liveness</h3>
+                <p class="tags"><span class="tag">Students</span></p>
+              </div>
+            </div>
+            <p>If your institution uses a selfie, face verification or liveness check, follow the on-screen instructions.</p>
+            <ul class="steps">
+              <li>Allow camera access when asked, or turn on <span class="ui-path">Settings › Apps › MARCS › Camera</span>.</li>
+              <li>Find good, even light. Face the light instead of having a window or lamp behind you.</li>
+              <li>Keep your whole face visible inside the frame and hold the phone steady at eye level. Remove sunglasses or a face mask if the app can’t see your face.</li>
+              <li>When asked to blink or complete another liveness step, do it naturally and wait for the app to confirm.</li>
+              <li>If verification keeps failing, stop and contact your teacher or MARCS support.</li>
+            </ul>
+          </article>
+
+          <article class="help-card" id="not-recorded" aria-labelledby="not-recorded-title">
+            <div class="help-card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg></span>
+              <div>
+                <h3 id="not-recorded-title">Attendance not recorded</h3>
+                <p class="tags"><span class="tag">Students</span></p>
+              </div>
+            </div>
+            <ul class="steps">
+              <li>Read the status message in the app. It usually explains which step did not complete.</li>
+              <li>Check that the session is still active. Attendance can’t be marked after it ends.</li>
+              <li>Check your attendance history in the app to see whether it was recorded.</li>
+              <li>Don’t keep retrying. Tell your teacher while you are still in class, as they may be able to record your attendance another way. If the problem continues, contact MARCS support.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="request" aria-labelledby="request-title">
+      <div class="container request-grid">
+        <div>
+          <div class="section__head">
+            <p class="eyebrow eyebrow--accent">Before you contact us</p>
+            <h2 id="request-title">What to include in your request</h2>
+            <p>These details help us find the problem quickly.</p>
+          </div>
+          <ul class="checklist">
+            <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>Your role:</strong> student or teacher.</span></li>
+            <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>What happened:</strong> a short description of the problem and any error message.</span></li>
+            <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>When it happened:</strong> the approximate date and time.</span></li>
+            <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>Your device:</strong> the iPhone model and iOS version, shown in <span class="ui-path">Settings › General › About</span>.</span></li>
+            <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>A screenshot</strong> of the error, if appropriate.</span></li>
+          </ul>
+        </div>
+
+        <aside class="notice notice--warning" aria-labelledby="safety-title">
+          <h3 class="notice__title" id="safety-title">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-warning"/></svg>
+            Keep your information safe
+          </h3>
+          <ul>
+            <li>Never send your password or one-time codes (OTPs) to anyone, including support staff.</li>
+            <li>Don’t send selfies, face photos or other biometric data by email or phone.</li>
+            <li>Before sending a screenshot, crop out your face, passwords and other people’s details.</li>
+            <li>Share only the personal information needed to describe the problem.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="privacy" aria-labelledby="privacy-title">
+      <div class="container">
+        <div class="privacy-card">
+          <span class="icon-tile icon-tile--solid"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg></span>
+          <div class="privacy-card__body">
+            <h2 id="privacy-title">Privacy</h2>
+            <p>The MARCS Privacy Policy explains what information the app collects, how it is used and shared, how long it is kept, and how to request deletion of your account and data.</p>
+            <a class="button button--primary" href="https://ved.bio/marcs/privacy-policy/" target="_blank" rel="noopener noreferrer">
+              Read the MARCS Privacy Policy
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-external"/></svg>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer on-dark">
+    <div class="container site-footer__inner">
+      <div class="site-footer__about">
+        <div class="brand brand--footer">
+          <img class="brand__logo" src="images/marcs-logo.png" width="288" height="288" alt="">
+          <span class="brand__name">MARCS</span>
+        </div>
+        <p>MARCS: Mass Attendance and Realtime Classroom System</p>
+        <p>This is the support page for the MARCS app.</p>
+        <p>Developed at CAIR (Center for Artificial Intelligence and Research), Swami Rama Himalayan University.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="#contact">Contact support</a></li>
+          <li><a href="#help">Common problems</a></li>
+          <li><a href="https://ved.bio/marcs/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container site-footer__legal">
+      <p>© <span data-current-year>2026</span> Swami Rama Himalayan University</p>
+      <p>iPhone is a trademark of Apple Inc. MARCS is not affiliated with or endorsed by Apple.</p>
+    </div>
+  </footer>
+</body>
+</html>
